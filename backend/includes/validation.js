@@ -34,3 +34,10 @@ export const loginValidation = (data) => {
 
     return schema.validate(data);
 }
+
+export const itemValidation = (data) => {
+    // const schema = Joi.object({
+        
+    // })
+    return {};
+}

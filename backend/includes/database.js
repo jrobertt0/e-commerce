@@ -12,7 +12,7 @@ export const connect = () => {
     connection.once('open', () => {
         console.log('MongoDB conected');
         gfs = Grid(connection.db, mongoose.mongo);
-        gfs.collection('uploads');
+        gfs.collection('products');
     });    
 }
 

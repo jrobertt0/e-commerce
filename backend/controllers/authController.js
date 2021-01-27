@@ -14,12 +14,9 @@ export const register = async (req, res) => {
     newUser.username = req.body.username;
     newUser.password = await newUser.encryptPassword(req.body.password);
 
-    try {
-        const savedUser = await newUser.save();
-        res.status(200).send({ user: savedUser._id });
-    } catch (err) {
-        res.status(400).send(err);
-    }
+    newUser.save()
+    .then(savedUser => res.status(200).send({ user: savedUser._id }))
+    .catch(err => res.status(400).json('Error: ' + err))
 }
 
 export const login = async (req, res) => {

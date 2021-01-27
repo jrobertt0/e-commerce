@@ -7,7 +7,7 @@ router.route('/').get((req, res) => {
     res.render('../views/index');
 });
 
-router.route("/upload").post(UploadsController.uploadProduct.single("file"), UploadsController.uploadFile);
+router.route("/products").post(UploadsController.uploadProduct("products").single("file"), UploadsController.uploadFile);
 
 router.route('/files').get(UploadsController.getFilesJSON);
 

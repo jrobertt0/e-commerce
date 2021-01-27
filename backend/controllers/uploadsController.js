@@ -5,35 +5,32 @@ import GridFsStorage from "multer-gridfs-storage";
 import 'dotenv/config.js';
 import { getGfs } from '../includes/database.js';
 
-
-let gfs = getGfs();
 const mongoURI = process.env.ATLAS_URI;
 
-
-const productStorage = new GridFsStorage({
-    url: mongoURI,
-    file: (req, file) => {
-        return new Promise((resolve, reject) => {
-            crypto.randomBytes(16, (err, buf) => {
-                if (err) {
-                    return reject(err);
-                }
-                const filename = buf.toString('hex') + path.extname(file.originalname);
-                const fileInfo = {
-                    filename: filename,
-                    bucketName: 'uploads',
-                    metadata: { userid: "111" }
-                };
-                resolve(fileInfo);
+export function uploadProduct(collection) {
+    const Storage = new GridFsStorage({
+        url: mongoURI,
+        file: (req, file) => {
+            return new Promise((resolve, reject) => {
+                crypto.randomBytes(16, (err, buf) => {
+                    if (err) {
+                        return reject(err);
+                    }
+                    const filename = buf.toString('hex') + path.extname(file.originalname);
+                    const fileInfo = {
+                        filename: filename,
+                        bucketName: collection,
+                    };
+                    resolve(fileInfo);
+                });
             });
-        });
-    }
-});
-
-export const uploadProduct = multer({ productStorage });
+        }
+    });
+    return multer({ Storage });
+}
 
 export const uploadFile = (req, res) => {
-    res.redirect("/");
+    return res.send(req.file)
 }
 
 export const getFilesJSON = (req, res) => {

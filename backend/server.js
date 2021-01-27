@@ -15,7 +15,7 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
 
-app.use('/uploads', uploadsRouter);
+app.use('/api/upload', uploadsRouter);
 app.use('/api/user', authRoute);
 app.use('/api/posts', postRoute);
 
