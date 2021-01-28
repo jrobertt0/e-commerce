@@ -1,33 +1,59 @@
 @import "../../globalStyles/_variables";
 
 @mixin no-link-style {
-	a {
-		text-decoration: none;
-		color: $primaryColor;
-		font-weight: 700;
+	li {
+		padding: 0.4rem 1rem;
+		a {
+			text-decoration: none;
+			color: $primaryColor;
+		}
 	}
 
-	a:hover {
-		color: $primaryColorDark;
+	li:hover {
+		background-color: $primaryColorLight;
+		transition: all 0.2s ease-out;
+		a {
+			color: white;
+		}
 	}
 }
 
 nav {
+	max-height: 6.5rem;
+	background-color: white;
+	box-shadow: 0px 4px 17px 0px rgba(0, 0, 0, 0.17);
+}
+
+.menu {
+	color: $primaryColor;
+	font-size: 1.4rem;
+	transition: all 0.6s ease-in-out;
+	display: none;
+}
+
+.upper-nav {
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
-	min-height: 8vh;
-	background-color: white;
-	box-shadow: 0px 4px 17px 0px rgba(0, 0, 0, 0.17);
+	min-height: 4.5rem;
+}
+
+.down-nav {
+	display: flex;
+	background-color: $primaryColorExtraLight;
+	max-height: 2rem;
+	justify-content: space-around;
+	align-items: center;
 
 	.nav-links {
-		width: 40%;
-		display: flex;
-		justify-content: space-around;
-		align-items: center;
-		list-style: none;
-
 		@include no-link-style();
+		padding: 0;
+		width: 70%;
+		display: flex;
+		justify-content: space-between;
+		list-style: none;
+		font-weight: 400;
+		list-style: none;
 	}
 }
 
@@ -44,13 +70,104 @@ svg {
 	@include no-link-style();
 
 	a {
-		margin: 0 8px;
+		margin: 0 10px;
 	}
 }
 
 .login-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	list-style: none;
+
 	@include no-link-style();
+	a:first-child {
+		margin-right: 15px;
+	}
 	a {
-		margin: 0 8px;
+		font-weight: 700;
+	}
+}
+
+.search-bar {
+	border: none;
+	padding: 0.5rem;
+	background-color: transparent;
+	min-width: 80%;
+}
+
+.hidden {
+	display: none;
+}
+
+.search-container {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	background-color: $primaryColorExtraLight;
+	border-radius: 5px;
+	min-width: 40%;
+
+	svg {
+		margin-right: 0.7rem;
+		color: $primaryColor;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.account-container {
+		display: none;
+	}
+	.login-container {
+		display: none;
+	}
+
+	.shown {
+		display: none;
+	}
+
+	nav {
+		max-height: 20rem;
+	}
+
+	.menu {
+		display: block;
+	}
+
+	.down-nav {
+		background-color: $primaryColorExtraLight;
+		min-height: 15.5rem;
+		align-items: center;
+		position: absolute;
+		opacity: 1;
+		left: -100%;
+		width: 100%;
+		transition: all 0.5s ease-in-out;
+
+		.nav-links {
+			@include no-link-style();
+			text-align: center;
+			width: 50%;
+			display: table;
+			vertical-align: middle;
+
+			li {
+				padding: 0.5rem;
+			}
+
+			a {
+				font-size: 10pt;
+			}
+		}
+	}
+
+	.down-nav.active {
+		left: 0;
+		min-width: 100%;
+		transition: all 0.5s ease-in-out;
+	}
+
+	.search-container {
+		width: 20%;
 	}
 }
