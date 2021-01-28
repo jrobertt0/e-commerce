@@ -1,0 +1,56 @@
+@import "../../globalStyles/_variables";
+
+@mixin no-link-style {
+	a {
+		text-decoration: none;
+		color: $primaryColor;
+		font-weight: 700;
+	}
+
+	a:hover {
+		color: $primaryColorDark;
+	}
+}
+
+nav {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	min-height: 8vh;
+	background-color: white;
+	box-shadow: 0px 4px 17px 0px rgba(0, 0, 0, 0.17);
+
+	.nav-links {
+		width: 40%;
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		list-style: none;
+
+		@include no-link-style();
+	}
+}
+
+svg {
+	max-width: 3rem;
+	max-height: 3rem;
+}
+
+.account-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	@include no-link-style();
+
+	a {
+		margin: 0 8px;
+	}
+}
+
+.login-container {
+	@include no-link-style();
+	a {
+		margin: 0 8px;
+	}
+}
