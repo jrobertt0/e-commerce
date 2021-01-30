@@ -26,11 +26,11 @@ export const login = async (req, res) => {
         return res.json({Error: error.details[0].message});
     
     const user = await User.findOne({ email: req.body.email });
-    if(!user) return res.send('Email is wrong');
+    if(!user) return res.send({Error: 'Email is wrong'});
 
     const validPass = await user.comparePassword(req.body.password);
-    if(!validPass) return res.send('Password is wrong');
+    if(!validPass) return res.send({Error: 'Password is wrong'});
 
     const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET);
-    res.header('auth-token', token).send(token);
+    res.header('auth-token', token).send({ token: token });
 }
