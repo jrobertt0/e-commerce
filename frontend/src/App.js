@@ -4,6 +4,7 @@ import Login from "./pages/Login/login";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
+
 	return (
 		<Router>
 			<div className="main">
@@ -12,7 +13,7 @@ function App() {
 					<Route
 						path="/login"
 						exact
-						component={() => <Login isLogin={true}></Login>}
+						component={() => <Login isLogin={true} ></Login>}
 					></Route>
 					<Route
 						path="/register"

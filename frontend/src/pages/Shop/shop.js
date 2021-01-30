@@ -2,9 +2,9 @@ import Nav from "../../components/Nav/nav";
 import About from "../../pages/about";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-function Shop(){
-    return (
-        <Router>
+function Shop() {
+	return (
+		<Router>
 			<div className="main">
 				<Switch>
 					<Nav></Nav>
@@ -12,7 +12,7 @@ function Shop(){
 				</Switch>
 			</div>
 		</Router>
-    )
+	);
 }
 
 export default Shop;

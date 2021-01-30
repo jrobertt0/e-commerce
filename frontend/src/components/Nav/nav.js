@@ -10,16 +10,18 @@ import { IoMdClose } from "react-icons/io";
 import { useMediaQuery } from "react-responsive";
 
 import { MenuItems } from "./menuItems";
+import { getToken } from "../../helpers/storage";
 
 function Nav() {
 	const isSmall = useMediaQuery({ query: "(max-width: 768px)" });
-	const {path, url} = useRouteMatch();
 
 	const [loggedIn, setLoggedIn] = useState(false);
 	const [openMenu, setOpenMenu] = useState(false);
 
 	useEffect(() => {
 		if (!isSmall) setOpenMenu(false);
+		const token = getToken()
+		setLoggedIn( token ? true : false);
 	}, [isSmall]);
 
 	return (
