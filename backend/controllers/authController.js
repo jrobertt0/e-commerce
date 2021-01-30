@@ -7,7 +7,7 @@ export const register = async (req, res) => {
     const { error } = registerValidation(req.body);
 
     if (error)
-        return res.send(error);
+        return res.send({Error: error.details[0].message});
 
     const newUser = new User();
     newUser.email = req.body.email;
@@ -16,14 +16,14 @@ export const register = async (req, res) => {
 
     newUser.save()
     .then(savedUser => res.send({ user: savedUser._id }))
-    .catch(err => res.json('Error: ' + err))
+    .catch(err => res.send({Error: err}))
 }
 
 export const login = async (req, res) => {
     const { error } = loginValidation(req.body);
 
     if (error)
-        return res.send(error.details[0].message);
+        return res.json({Error: error.details[0].message});
     
     const user = await User.findOne({ email: req.body.email });
     if(!user) return res.send('Email is wrong');
