@@ -7,7 +7,7 @@ export const register = async (req, res) => {
     const { error } = registerValidation(req.body);
 
     if (error)
-        return res.status(400).send(error);
+        return res.send(error);
 
     const newUser = new User();
     newUser.email = req.body.email;
@@ -15,21 +15,21 @@ export const register = async (req, res) => {
     newUser.password = await newUser.encryptPassword(req.body.password);
 
     newUser.save()
-    .then(savedUser => res.status(200).send({ user: savedUser._id }))
-    .catch(err => res.status(400).json('Error: ' + err))
+    .then(savedUser => res.send({ user: savedUser._id }))
+    .catch(err => res.json('Error: ' + err))
 }
 
 export const login = async (req, res) => {
     const { error } = loginValidation(req.body);
 
     if (error)
-        return res.status(400).send(error.details[0].message);
+        return res.send(error.details[0].message);
     
     const user = await User.findOne({ email: req.body.email });
-    if(!user) return res.status(400).send('Email is wrong');
+    if(!user) return res.send('Email is wrong');
 
     const validPass = await user.comparePassword(req.body.password);
-    if(!validPass) return res.status(400).send('Password is wrong');
+    if(!validPass) return res.send('Password is wrong');
 
     const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET);
     res.header('auth-token', token).send(token);
