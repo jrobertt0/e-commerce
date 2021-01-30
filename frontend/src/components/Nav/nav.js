@@ -1,18 +1,26 @@
 import "./nav.scss";
 import Avatar from "../Avatar/avatar";
 
-import { Link } from "react-router-dom";
+import { Link, useRouteMatch } from "react-router-dom";
 import { ReactComponent as Logo } from "../../assets/img/Logo.svg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SearchBbar from "./searchbar";
 import { FiShoppingCart, FiMenu } from "react-icons/fi";
 import { IoMdClose } from "react-icons/io";
+import { useMediaQuery } from "react-responsive";
 
 import { MenuItems } from "./menuItems";
 
 function Nav() {
+	const isSmall = useMediaQuery({ query: "(max-width: 768px)" });
+	const {path, url} = useRouteMatch();
+
 	const [loggedIn, setLoggedIn] = useState(false);
 	const [openMenu, setOpenMenu] = useState(false);
+
+	useEffect(() => {
+		if (!isSmall) setOpenMenu(false);
+	}, [isSmall]);
 
 	return (
 		<nav>
@@ -31,10 +39,10 @@ function Nav() {
 				) : (
 					<ul className="login-container">
 						<li>
-							<Link to="/login">Iniciar Sesion</Link>
+							<a href="/login">Iniciar Sesion</a>
 						</li>
 						<li>
-							<Link to="/register">Registrarse</Link>
+							<a href="/register">Registrarse</a>
 						</li>
 					</ul>
 				)}
