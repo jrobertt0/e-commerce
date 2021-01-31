@@ -1,0 +1,12 @@
+@import "../../globalStyles/_variables";
+
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.avatar-form {
+    border-radius: 100%;
+    background-color: gray;
+    width: 2.2rem;
+    height: 2.2rem;
+}

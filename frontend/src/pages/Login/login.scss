@@ -1,0 +1,36 @@
+@import "../../globalStyles/_variables";
+
+.container {
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	background: linear-gradient(151deg,
+		$primaryColor 52%,
+		rgba(255, 255, 255, 1) 52%
+	);
+}
+
+.ilustration-container {
+	height: 100vh;
+	width: 60%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	svg {
+		min-height: 65vh;
+		min-width: 65vh;
+
+		polygon{
+			fill: $primaryColor
+		}
+	}
+}
+
+.login-card-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	min-width: 40%;
+}
