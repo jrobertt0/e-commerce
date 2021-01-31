@@ -6,6 +6,30 @@ import "dotenv/config.js";
 import { getGfs } from "../includes/database.js";
 
 const mongoURI = process.env.ATLAS_URI;
+var currentRoot = "item";
+
+export const ui = (req, res) => {
+	getGfs()
+		.files.find()
+		.toArray((err, files) => {
+			// Check if files
+			if (!files || files.length === 0) {
+				res.render("index", { files: false });
+			} else {
+				files.map((file) => {
+					if (
+						file.contentType === "image/jpeg" ||
+						file.contentType === "image/png"
+					) {
+						file.isImage = true;
+					} else {
+						file.isImage = false;
+					}
+				});
+				// res.render("index", { files: files });
+			}
+		});
+};
 
 export function uploadPicture(collection) {
 	const storage = new GridFsStorage({
@@ -31,7 +55,8 @@ export function uploadPicture(collection) {
 }
 
 export const uploadFile = (req, res) => {
-	return res.send(req.file);
+	const { id, filename, contentType } = req.file;
+	return res.send({ id: id, filename: filename, contentType: contentType });
 };
 
 export const getFilesJSON = (req, res) => {
@@ -71,7 +96,7 @@ export const getImageFile = (req, res) => {
 			file.contentType === "image/jpeg" ||
 			file.contentType === "image/png"
 		) {
-			const readstream = gfs.createReadStream(file.filename);
+			const readstream = getGfs().createReadStream(file.filename);
 			readstream.pipe(res);
 		} else {
 			res.status(404).json({
@@ -83,7 +108,7 @@ export const getImageFile = (req, res) => {
 
 export const deleteFile = (req, res) => {
 	getGfs().remove(
-		{ _id: req.params.id, root: "uploads" },
+		{ _id: req.params.id, root: currentRoot },
 		(err, gridStore) => {
 			if (err) {
 				return res.status(404).json({ err: err });
@@ -93,3 +118,15 @@ export const deleteFile = (req, res) => {
 		}
 	);
 };
+
+export function collectionAvatar(req, res, next) {
+	getGfs().collection("avatar");
+	currentRoot = "avatar";
+	next();
+}
+
+export function collectionItems(req, res, next) {
+	getGfs().collection("item");
+	currentRoot = "item";
+	next();
+}

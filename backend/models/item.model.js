@@ -21,11 +21,11 @@ const itemSchema = new Schema(
             required: false,
             default: "0"
         }, image: {
-            type: String,
+            type: Object,
             required: false,
         }, date: {
             type: Date,
-            default: Date.now,
+            default: Date.now(),
         }
     }
 );
