@@ -8,7 +8,7 @@ export const register = async (req, res) => {
 	if (error) return res.send({ Error: error.details[0].message });
 
 	const existingUser = User.findOne({ email: req.body.email });
-	if (existingUser) return res.send({ Error: "User already exists" });
+	if (existingUser.email) return res.send({ Error: "User already exists" });
 
 	const newUser = new User();
 	newUser.email = req.body.email;

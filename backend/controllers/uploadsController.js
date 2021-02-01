@@ -6,7 +6,6 @@ import "dotenv/config.js";
 import { getGfs } from "../includes/database.js";
 
 const mongoURI = process.env.ATLAS_URI;
-var currentRoot = "item";
 
 export const ui = (req, res) => {
 	getGfs()
@@ -14,7 +13,7 @@ export const ui = (req, res) => {
 		.toArray((err, files) => {
 			// Check if files
 			if (!files || files.length === 0) {
-				res.render("index", { files: false });
+				res.render("../views/index", { files: false });
 			} else {
 				files.map((file) => {
 					if (
@@ -26,7 +25,7 @@ export const ui = (req, res) => {
 						file.isImage = false;
 					}
 				});
-				// res.render("index", { files: files });
+				res.render("../views/index", { files: files });
 			}
 		});
 };
@@ -86,6 +85,7 @@ export const getFile = (req, res) => {
 
 export const getImageFile = (req, res) => {
 	getGfs().files.findOne({ filename: req.params.filename }, (err, file) => {
+		console.log(err)
 		if (!file || file.length === 0) {
 			return res.status(404).json({
 				err: "No file exists",
@@ -108,7 +108,7 @@ export const getImageFile = (req, res) => {
 
 export const deleteFile = (req, res) => {
 	getGfs().remove(
-		{ _id: req.params.id, root: currentRoot },
+		{ _id: req.params.id, root: req.currentRoot },
 		(err, gridStore) => {
 			if (err) {
 				return res.status(404).json({ err: err });
@@ -119,14 +119,10 @@ export const deleteFile = (req, res) => {
 	);
 };
 
-export function collectionAvatar(req, res, next) {
-	getGfs().collection("avatar");
-	currentRoot = "avatar";
-	next();
-}
-
-export function collectionItems(req, res, next) {
-	getGfs().collection("item");
-	currentRoot = "item";
-	next();
+export function collection(collection) {
+	return function (req, res, next) {
+		getGfs().collection(collection);
+		req.currentRoot = collection
+		next();
+	};
 }

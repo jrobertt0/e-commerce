@@ -39,12 +39,13 @@ export const deleteItem = async (req, res) => {
 }
 
 export const editItem = async (req, res) => {
+    const data = req.body;
     Exercise.findById(req.params.id)
-        .then(exercise => {
-            newItem.name = data.name;
-            newItem.description = data.description;
-            newItem.offer = data.offer;
-            newItem.image = data.image;
+        .then(item => {
+            item.name = data.name ? data.name : item.name;
+            item.description = data.description ? data.description : item.description;
+            item.offer = data.offer ? data.offer : item.offer;
+            item.image = data.image ? data.image : item.image;
 
             exercise.save()
                 .then(() => res.json('Exercise updated!'))
