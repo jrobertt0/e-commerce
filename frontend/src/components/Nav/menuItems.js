@@ -33,5 +33,10 @@ export const MenuItems = [
         title: 'Cuenta',
         url: '#',
         cName: 'account'
+    },
+    {
+        title: 'Cerrar Sesión',
+        url: '/login',
+        cName: 'account'
     }
 ]

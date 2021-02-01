@@ -21,16 +21,16 @@ export function localClear() {
 }
 
 export function setInSession(name, item) {
-	localStorage.setItem(name, item);
+	sessionStorage.setItem(name, item);
 }
 
 export function getInSession(name, json = false) {
-    const item = localStorage.getItem(name);
+    const item = sessionStorage.getItem(name);
 	return json ? JSON.parse(item) : item;
 }
 
-export function localSession() {
-    localStorage.clear();
+export function sessionClear() {
+    sessionStorage.clear();
 }
 
 export function clearAll(){

@@ -73,8 +73,8 @@ label {
 	cursor: pointer;
 	position: relative;
 	font-size: 9pt;
-	
-	 // important
+
+	// important
 
 	// Now we'll create the checkbox object
 
@@ -184,4 +184,37 @@ input[type="checkbox"] {
 			}
 		}
 	}
+}
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	transform: translateX(-30%);
+	z-index: 1;
+
+	a {
+		display: flex;
+		margin: 0 !important;
+		padding: 5px;
+		justify-content: center;
+		transition: all 120ms ease 100ms;
+		text-align: center;
+	}
+
+	a:hover {
+		background-color: $primaryColor;
+		color: white;
+	}
+}
+
+.dropdown:hover .dropdown-content {
+	display: block;
 }

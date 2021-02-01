@@ -21,7 +21,8 @@
 nav {
 	max-height: 6.5rem;
 	background-color: white;
-	box-shadow: 0px 4px 17px 0px rgba(0, 0, 0, 0.17);
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
+		rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
 }
 
 .menu {
@@ -81,9 +82,6 @@ svg {
 	list-style: none;
 
 	@include no-link-style();
-	a:first-child {
-		margin-right: 15px;
-	}
 	a {
 		font-weight: 700;
 	}
@@ -94,6 +92,11 @@ svg {
 	padding: 0.5rem;
 	background-color: transparent;
 	min-width: 80%;
+
+	&:focus,
+	&:active {
+		outline: none;
+	}
 }
 
 .hidden {

@@ -10,62 +10,54 @@ import {
 } from "../../helpers/storage";
 import "./loginCard.scss";
 import { Link } from "react-router-dom";
-
-async function preformLogin(credentials) {
-	return fetch("http://localhost:5000/api/user/login", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify(credentials),
-	}).then((data) => data.json());
-}
-
-async function preformRegister(credentials) {
-	return fetch("http://localhost:5000/api/user/register", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify(credentials),
-	}).then((data) => data.json());
-}
+import ClipLoader from "react-spinners/ClipLoader";
 
 function LoginCard({ login }) {
+	const [isLoading, setIsLoading] = useState(false);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [username, setUsername] = useState("");
 	const [msgs, setMsgs] = useState("");
 	const [rememberMe, setRememberme] = useState(false);
 
-	useEffect(() => {
-		if (getInLocal("rememberMe")) {
-			setRememberme(true);
-			setEmail(getInLocal("email"));
-			setPassword(getInLocal("password"));
-		}
-	}, []);
+	async function preformPost(credentials, type) {
+		let uri = "http://localhost:5000/api/user/" + type;
+		return fetch(uri, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(credentials),
+		}).then((data) => data.json());
+	}
 
 	const handleSubmit = async (e) => {
 		let res;
 		e.preventDefault();
+		setIsLoading(true);
 		if (login) {
-			res = await preformLogin({
-				email,
-				password,
-			});
+			res = await preformPost(
+				{
+					email,
+					password,
+				},
+				"login"
+			);
 		} else {
-			res = await preformRegister({
-				email,
-				password,
-				username,
-			});
+			res = await preformPost(
+				{
+					email,
+					password,
+					username,
+				},
+				"register"
+			);
 		}
+		setIsLoading(false);
 		if (res.Error) {
 			setMsgs(res.Error);
 			setTimeout(() => setMsgs(""), 2000);
 		} else if (res.token) {
-			console.log("here")
 			setToken(res.token);
 			if (rememberMe) {
 				setInLocal("rememberMe", true);
@@ -82,11 +74,21 @@ function LoginCard({ login }) {
 		console.log(res);
 	};
 
+	useEffect(() => {
+		if (getInLocal("rememberMe")) {
+			setRememberme(true);
+			setEmail(getInLocal("email"));
+			setPassword(getInLocal("password"));
+		}
+	}, []);
+
 	return (
 		<div className="card-container">
 			<h2>{login ? "Iniciar Sesión" : "Registro"}</h2>
 			<div className="card">
-				<Logo></Logo>
+				<div className="top-card">
+					{isLoading ? <ClipLoader></ClipLoader> : <Logo></Logo>}
+				</div>
 				<form className="login-form" onSubmit={(e) => handleSubmit(e)}>
 					{!login ? (
 						<div className="input-component">

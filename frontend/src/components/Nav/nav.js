@@ -10,7 +10,7 @@ import { IoMdClose } from "react-icons/io";
 import { useMediaQuery } from "react-responsive";
 
 import { MenuItems } from "./menuItems";
-import { getToken } from "../../helpers/storage";
+import { getToken, sessionClear } from "../../helpers/storage";
 
 function Nav() {
 	const isSmall = useMediaQuery({ query: "(max-width: 768px)" });
@@ -20,8 +20,8 @@ function Nav() {
 
 	useEffect(() => {
 		if (!isSmall) setOpenMenu(false);
-		const token = getToken()
-		setLoggedIn( token ? true : false);
+		const token = getToken();
+		setLoggedIn(token ? true : false);
 	}, [isSmall]);
 
 	return (
@@ -31,9 +31,7 @@ function Nav() {
 				<SearchBbar></SearchBbar>
 				{loggedIn ? (
 					<div className="login-container">
-						<Link>
-							<Avatar></Avatar>
-						</Link>
+						<Avatar></Avatar>
 						<Link>
 							<FiShoppingCart></FiShoppingCart>
 						</Link>
@@ -48,13 +46,17 @@ function Nav() {
 						</li>
 					</ul>
 				)}
-				<i onClick={() => setOpenMenu((val) => (val = !val))}>
-					{openMenu ? (
-						<IoMdClose className="menu"></IoMdClose>
-					) : (
-						<FiMenu className="menu"></FiMenu>
-					)}
-				</i>
+				{isSmall ? (
+					<i onClick={() => setOpenMenu((val) => (val = !val))}>
+						{openMenu ? (
+							<IoMdClose className="menu"></IoMdClose>
+						) : (
+							<FiMenu className="menu"></FiMenu>
+						)}
+					</i>
+				) : (
+					<></>
+				)}
 			</section>
 			<section className={openMenu ? "down-nav active" : "down-nav"}>
 				<ul className="nav-links">
@@ -70,7 +72,13 @@ function Nav() {
 									: ""
 							}
 						>
-							<Link to={item.url}>{item.title}</Link>
+							{item.url === "/login" ? (
+								<a href="/login" onClick={() => sessionClear()}>
+									{item.title}
+								</a>
+							) : (
+								<Link to={item.url}>{item.title}</Link>
+							)}
 						</li>
 					))}
 				</ul>
