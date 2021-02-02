@@ -13,6 +13,7 @@ export const register = async (req, res) => {
 	const newUser = new User();
 	newUser.email = req.body.email;
 	newUser.username = req.body.username;
+	newUser.name = req.body.name;
 	newUser.password = await newUser.encryptPassword(req.body.password);
 
 	newUser

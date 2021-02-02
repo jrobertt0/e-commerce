@@ -20,6 +20,13 @@ const userSchema = new Schema(
 			minlength: 3,
 			maxlength: 25,
 		},
+		name: {
+			type: String,
+			required: true,
+			trim: true,
+			minlength: 3,
+			maxlength: 25,
+		},
 		password: {
 			type: String,
 			required: true,
