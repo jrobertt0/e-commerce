@@ -1,0 +1,64 @@
+@import "../../globalStyles/_variables";
+
+.space-y{
+	margin-top: 3rem;
+}
+
+.user-image {
+	width: 5rem;
+	border-radius: 100%;
+}
+
+.buttons-container {
+	display: flex;
+	justify-content: center;
+
+	button {
+		width: 30%;
+	}
+
+	.cancel {
+		background-color: $danger;
+	}
+
+	.save {
+		background-color: $success;
+	}
+}
+
+.field {
+	max-width: 40%;
+	margin: 0 auto;
+
+	div:first-child{
+		margin-top: 2.5rem;
+	}
+
+	div {
+		color: black;
+		align-items: center;
+		justify-content: flex-start;
+		margin-bottom: 2.5rem;
+
+		input {
+			margin-bottom: 0;
+			max-width: 100%;
+		}
+
+		p{
+			margin: 0;
+		}
+	}
+}
+
+@media screen and (max-width: 550px) {
+	.field{
+		max-width: 60%;
+	}
+}
+
+@media screen and (max-width: 425px) {
+	.field{
+		max-width: 80%;
+	}
+}

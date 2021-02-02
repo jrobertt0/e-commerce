@@ -1,7 +1,7 @@
 import "./nav.scss";
 import Avatar from "../Avatar/avatar";
 
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../../assets/img/Logo.svg";
 import { useState, useEffect } from "react";
 import SearchBbar from "./searchbar";
@@ -73,11 +73,24 @@ function Nav() {
 							}
 						>
 							{item.url === "/login" ? (
-								<a href="/login" onClick={() => sessionClear()}>
+								<a
+									href="/login"
+									onClick={() => {
+										setOpenMenu((val) => (val = !val));
+										sessionClear();
+									}}
+								>
 									{item.title}
 								</a>
 							) : (
-								<Link to={item.url}>{item.title}</Link>
+								<Link
+									to={item.url}
+									onClick={() =>
+										setOpenMenu((val) => (val = !val))
+									}
+								>
+									{item.title}
+								</Link>
 							)}
 						</li>
 					))}

@@ -6,7 +6,7 @@ import { ReactComponent as Mobile } from "../../assets/img/mobile.svg";
 function Login({isLogin}) {
 	const isSmall = useMediaQuery({ query: "(max-width: 768px)" });
 	return (
-		<div className="container">
+		<div className="container gradient-bg full-screen">
 			{isSmall ? (
 				<LoginCard login={isLogin}></LoginCard>
 			) : (

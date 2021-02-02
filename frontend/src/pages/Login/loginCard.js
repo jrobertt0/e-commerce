@@ -11,32 +11,23 @@ import {
 import "./loginCard.scss";
 import { Link } from "react-router-dom";
 import ClipLoader from "react-spinners/ClipLoader";
+import { loginRegister } from "../../helpers/requests";
 
 function LoginCard({ login }) {
 	const [isLoading, setIsLoading] = useState(false);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [username, setUsername] = useState("");
+	const [name, setName] = useState("");
 	const [msgs, setMsgs] = useState("");
 	const [rememberMe, setRememberme] = useState(false);
-
-	async function preformPost(credentials, type) {
-		let uri = "http://localhost:5000/api/user/" + type;
-		return fetch(uri, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(credentials),
-		}).then((data) => data.json());
-	}
 
 	const handleSubmit = async (e) => {
 		let res;
 		e.preventDefault();
 		setIsLoading(true);
 		if (login) {
-			res = await preformPost(
+			res = await loginRegister(
 				{
 					email,
 					password,
@@ -44,11 +35,12 @@ function LoginCard({ login }) {
 				"login"
 			);
 		} else {
-			res = await preformPost(
+			res = await loginRegister(
 				{
 					email,
 					password,
 					username,
+					name
 				},
 				"register"
 			);
@@ -69,13 +61,14 @@ function LoginCard({ login }) {
 			setEmail("");
 			setPassword("");
 			setUsername("");
+			setName("");
 			window.location.href = "/";
 		}
 		console.log(res);
 	};
 
 	useEffect(() => {
-		if (getInLocal("rememberMe")) {
+		if (getInLocal("rememberMe") && login) {
 			setRememberme(true);
 			setEmail(getInLocal("email"));
 			setPassword(getInLocal("password"));
@@ -91,16 +84,32 @@ function LoginCard({ login }) {
 				</div>
 				<form className="login-form" onSubmit={(e) => handleSubmit(e)}>
 					{!login ? (
-						<div className="input-component">
-							<FaUserAlt className="icon"></FaUserAlt>
-							<input
-								required
-								type="text"
-								className="input-login"
-								placeholder="Usuario"
-								onChange={(e) => setUsername(e.target.value)}
-							/>
-						</div>
+						<>
+							<div className="input-component">
+								<FaUserAlt className="icon"></FaUserAlt>
+								<input
+									required
+									type="text"
+									className="input-login"
+									placeholder="Usuario"
+									onChange={(e) =>
+										setUsername(e.target.value)
+									}
+								/>
+							</div>
+							<div className="input-component">
+								<FaUserAlt className="icon"></FaUserAlt>
+								<input
+									required
+									type="text"
+									className="input-login"
+									placeholder="Nombre"
+									onChange={(e) =>
+										setName(e.target.value)
+									}
+								/>
+							</div>
+						</>
 					) : (
 						<></>
 					)}
@@ -141,7 +150,7 @@ function LoginCard({ login }) {
 									<span></span>Recuerdame
 								</label>
 							</div>
-							<button type="submit" className="btn login-button">
+							<button type="submit" className="btn login-button bg-gradient">
 								<span>Ingresar</span>
 							</button>
 							<Link
@@ -153,7 +162,7 @@ function LoginCard({ login }) {
 						</>
 					) : (
 						<>
-							<button type="submit" className="btn login-button">
+							<button type="submit" className="btn login-button bg-gradient">
 								<span>Registrarse</span>
 							</button>
 							<Link to="/login" className="login-link">

@@ -146,6 +146,7 @@ svg {
 		left: -100%;
 		width: 100%;
 		transition: all 0.5s ease-in-out;
+		z-index: 10;
 
 		.nav-links {
 			@include no-link-style();

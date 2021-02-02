@@ -1,5 +1,87 @@
 @import "./variables";
 
+.card-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	text-align: center;
+	color: white;
+}
+
+.card {
+	border-radius: 10px;
+	background-color: white;
+	box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+		rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+	padding: 1rem;
+	text-align: center;
+
+	.top-card {
+		margin-bottom: 2rem;
+	}
+}
+
+.container {
+	display: flex;
+}
+
+.input-component {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+@media screen and (max-width: 768px) {
+	.container {
+		flex-direction: column;
+		justify-content: flex-end;
+		align-items: center;
+	}
+
+	.card-container {
+		width: 85%;
+		max-width: 525px;
+		height: 75%;
+	}
+
+	.card {
+		margin-bottom: 1rem;
+		height: 80%;
+	}
+}
+
+.full-screen {
+	height: 100vh;
+	width: 100vw;
+}
+
+.primary-gradient {
+	background: rgb(84, 122, 255);
+	background: linear-gradient(
+		36deg,
+		rgba(84, 122, 255, 1) 50%,
+		rgba(84, 217, 255, 1) 100%
+	);
+}
+
+.danger-gradient {
+	background: rgb(196, 37, 37);
+	background: linear-gradient(
+		322deg,
+		rgba(196, 37, 37, 1) 29%,
+		rgba(255, 172, 84, 1) 100%
+	);
+}
+
+.success-gradient {
+	background: rgb(15, 67, 15);
+	background: linear-gradient(
+		322deg,
+		rgba(15, 67, 15, 1) 0%,
+		rgba(67, 172, 67, 1) 45%
+	);
+}
+
 .btn {
 	position: relative;
 	display: block;

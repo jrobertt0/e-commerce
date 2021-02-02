@@ -1,28 +1,15 @@
 import "./avatar.scss";
-import { getToken, sessionClear } from "../../helpers/storage";
+import { sessionClear } from "../../helpers/storage";
 import { useEffect, useState } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 import { Link } from "react-router-dom";
+import { getUser } from "../../helpers/requests";
 
 function Avatar() {
 	const [user, setUser] = useState(" ");
 
-	async function getUser(credentials) {
-		const token = getToken();
-		const response = await fetch("http://localhost:5000/api/account/user", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				"auth-token": token,
-			},
-			body: JSON.stringify(credentials),
-		});
-		const remoteUser = await response.json();
-		setUser(remoteUser);
-	}
-
-	useEffect(async () => {
-		await getUser().then(() => console.log(user));
+	useEffect(() => {
+		getUser(setUser).then(() => console.log(user));
 	}, []);
 
 	return (
