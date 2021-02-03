@@ -1,12 +1,54 @@
 @import "../../globalStyles/_variables";
 
-.space-y{
+.space-y {
 	margin-top: 3rem;
 }
 
+.image-container {
+	display: flex;
+	justify-content: center;
+}
+
 .user-image {
-	width: 5rem;
+	min-width: 5rem;
+	min-height: 5rem;
+	max-width: 5rem;
+	max-height: 5rem;
 	border-radius: 100%;
+	overflow: hidden;
+
+	.image-container {
+		height: 100%;
+		width: 100%;
+		display: flex;
+		justify-content: center;
+	}
+}
+
+.hover-content {
+	width: 5rem;
+	height: 5rem;
+	display: none;
+	background-color: rgba(153, 153, 153, 0.185);
+	border-radius: 100%;
+	z-index: 10;
+	align-items: flex-end;
+	justify-content: flex-end;
+	transform: translateX(-100%);
+
+	svg {
+		color: $primaryColor;
+		font-size: 15pt;
+	}
+}
+
+.hoverable:hover .hover-content {
+	float: left;
+	display: flex;
+}
+
+.hoverable:hover {
+	transform: translateX(2.5rem);
 }
 
 .buttons-container {
@@ -30,7 +72,7 @@
 	max-width: 40%;
 	margin: 0 auto;
 
-	div:first-child{
+	div:first-child {
 		margin-top: 2.5rem;
 	}
 
@@ -45,20 +87,20 @@
 			max-width: 100%;
 		}
 
-		p{
+		p {
 			margin: 0;
 		}
 	}
 }
 
 @media screen and (max-width: 550px) {
-	.field{
+	.field {
 		max-width: 60%;
 	}
 }
 
 @media screen and (max-width: 425px) {
-	.field{
+	.field {
 		max-width: 80%;
 	}
 }

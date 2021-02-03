@@ -12,6 +12,7 @@ import "./loginCard.scss";
 import { Link } from "react-router-dom";
 import ClipLoader from "react-spinners/ClipLoader";
 import { loginRegister } from "../../helpers/requests";
+import ErrorMsg from "../../components/ErrorMsg/errorMsg";
 
 function LoginCard({ login }) {
 	const [isLoading, setIsLoading] = useState(false);
@@ -170,13 +171,7 @@ function LoginCard({ login }) {
 							</Link>
 						</>
 					)}
-					<div
-						className={
-							msgs === "" ? "error-msgs" : "error-msgs active"
-						}
-					>
-						<h5>{msgs}</h5>
-					</div>
+					<ErrorMsg msgs={msgs}></ErrorMsg>
 				</form>
 			</div>
 		</div>

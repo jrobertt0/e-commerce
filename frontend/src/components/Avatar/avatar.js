@@ -19,19 +19,23 @@ function Avatar() {
 					{user === " " ? (
 						<ClipLoader></ClipLoader>
 					) : (
-						<img
-							src={
-								"http://localhost:5000/api/upload/item/image/" +
-								user.avatar.filename
-							}
-							alt="avatar"
-						/>
+						<div className="image-container">
+							<img
+								src={
+									"http://localhost:5000/api/upload/avatar/image/" +
+									user.avatar.filename
+								}
+								alt="avatar"
+							/>
+						</div>
 					)}
 				</div>
 				<div className="dropdown-content">
 					<Link to="/account">Cuenta</Link>
 					<br />
-					<a href="/login" onClick={() => sessionClear()}>Cerrar Sesión</a>
+					<a href="/login" onClick={() => sessionClear()}>
+						Cerrar Sesión
+					</a>
 				</div>
 			</div>
 			<Link to="/account">

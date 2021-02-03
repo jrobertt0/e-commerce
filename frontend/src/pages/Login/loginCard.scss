@@ -31,27 +31,6 @@
 	color: $primaryColor;
 }
 
-.error-msgs {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background-color: rgb(255, 70, 70);
-	border-radius: 5px;
-	width: 90%;
-	height: 2rem;
-	margin: 0 auto;
-	border: 2px solid rgb(235, 52, 52);
-	color: white;
-	font-size: 9pt;
-	opacity: 0;
-	transition: all 0.5s ease-in-out;
-}
-
-.error-msgs.active {
-	opacity: 1;
-	transition: all 0.5s ease-in-out;
-}
-
 @media screen and (max-width: 768px) {
 	.container {
 		flex-direction: column;
