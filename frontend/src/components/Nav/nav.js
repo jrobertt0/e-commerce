@@ -22,6 +22,7 @@ function Nav() {
 		if (!isSmall) setOpenMenu(false);
 		const token = getToken();
 		setLoggedIn(token ? true : false);
+		console.log("hey");
 	}, [isSmall]);
 
 	return (
@@ -86,7 +87,7 @@ function Nav() {
 								<Link
 									to={item.url}
 									onClick={() =>
-										setOpenMenu((val) => (val = !val))
+										setOpenMenu((val) => isSmall ? val = !val : val)
 									}
 								>
 									{item.title}

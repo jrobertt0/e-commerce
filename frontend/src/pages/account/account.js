@@ -27,6 +27,9 @@ function Account() {
 
 	const selectPicture = useRef(null);
 
+	const card = useRef(null);
+	const container = useRef(null);
+
 	async function handleSubmit(e) {
 		e.preventDefault();
 		let avatar = user.avatar;
@@ -89,18 +92,39 @@ function Account() {
 		}/${date.getFullYear()}`;
 	}
 
+	function animateContainer(e) {
+		let xAxis = (window.innerWidth / 2 - e.pageX) / 100;
+		let yAxis = (window.innerWidth / 2 - e.pageY) / 100;
+		// card.current.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`
+	}
+
+	function animateOutContainer(e) {
+		// card.current.style.transform = `rotateY(0deg) rotateX(0deg)`
+	}
+	// function animateCard(e) {}
+
 	useEffect(() => {
 		async function aux() {
 			await getUser(setUser).then(() => console.log(user));
 		}
 		if (user === " ") aux();
-		else {
+		else if (
+			username !== user.username ||
+			email !== user.email ||
+			email !== user.email
+		) {
 			setEmail(user.email);
 			setUsername(user.username);
 			setName(user.name);
-			console.log(user.createdAt);
+		} else if (container && container.current && card && card.current) {
+			container.current.addEventListener("mousemove", (e) =>
+				animateContainer(e)
+			);
+			container.current.addEventListener("mouseleave", (e) =>
+				animateOutContainer(e)
+			);
 		}
-	}, [user]);
+	}, [user, container, card]);
 
 	return (
 		<form className="container justify-center" onSubmit={handleSubmit}>
@@ -109,56 +133,52 @@ function Account() {
 			) : (
 				<>
 					<h2>Información de Cuenta</h2>
-					<div className="card-container space-y">
-						<div className="card card-big">
-							<div
-								className={
-									edit
-										? "top-container hoverable"
-										: "top-container"
-								}
-							>
-								<div className="user-image">
-									<div className="image-container">
-										<img
-											src={
-												image
-													? image
-													: "http://localhost:5000/api/upload/avatar/image/" +
-													  user.avatar.filename
+					<div className="card-container space" ref={container}>
+						<div className="card card-big" ref={card}>
+							<div className="top-container">
+								<div className={edit ? "hoverable info" : "info"}>
+									<div className="user-image">
+										<div className="image-container">
+											<img
+												src={
+													image
+														? image
+														: "http://localhost:5000/api/upload/avatar/image/" +
+														  user.avatar.filename
+												}
+												alt="avatar"
+											/>
+										</div>
+									</div>
+									{edit ? (
+										<div
+											onClick={() =>
+												selectPicture.current.click()
 											}
-											alt="avatar"
-										/>
-									</div>
-								</div>
-								{edit ? (
-									<div
-										onClick={() =>
-											selectPicture.current.click()
-										}
-										className="hover-content"
-									>
-										<FaEdit></FaEdit>
-									</div>
-								) : (
-									<></>
-								)}
-								<div className="additionalData">
-									<p>
-										Miembro desde: <br />
-										<span>
-											{formatDate(
-												new Date(user.createdAt)
-											)}
-										</span>
-									</p>
-									{user.admin ? (
-										<div className="admin">
-											<span>Admin</span>
+											className="hover-content"
+										>
+											<FaEdit></FaEdit>
 										</div>
 									) : (
 										<></>
 									)}
+									<div className="additionalData">
+										<p>
+											Miembro desde: <br />
+											<span>
+												{formatDate(
+													new Date(user.createdAt)
+												)}
+											</span>
+										</p>
+										{user.admin ? (
+											<div className="admin">
+												<span>Admin</span>
+											</div>
+										) : (
+											<></>
+										)}
+									</div>
 								</div>
 							</div>
 							{edit ? (

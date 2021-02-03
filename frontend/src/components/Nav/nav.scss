@@ -91,9 +91,22 @@ svg {
 	list-style: none;
 
 	@include no-link-style();
-	a {
-		font-weight: 700;
+	li {
+		a {
+			color: $primaryColor;
+			font-weight: 700;
+		}
 	}
+
+	li:hover {
+		background-color: $primaryColor;
+		transition: all 0.2s ease-out;
+		a {
+			color: white;
+		}
+	}
+
+
 }
 
 .search-bar {

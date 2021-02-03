@@ -9,6 +9,7 @@
 }
 
 .card {
+	// transform-style: preserve-3d;
 	border-radius: 10px;
 	background-color: white;
 	box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
@@ -20,6 +21,10 @@
 		margin-bottom: 2rem;
 	}
 }
+
+// body{
+// 	perspective: 1000px;
+// }
 
 .container {
 	display: flex;
