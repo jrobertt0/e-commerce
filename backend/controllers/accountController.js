@@ -38,7 +38,7 @@ export const editUser = async (req, res) => {
 			user.name = data.name ? data.name : user.name;
 
 			user.save()
-				.then((savedUser) => res.send({user: savedUser}))
+				.then((savedUser) => res.send({status: 'success'}))
 				.catch((err) => res.status(400).json("Error: " + err));
 		})
 		.catch((err) => res.status(400).json("Error: " + err));
