@@ -12,11 +12,18 @@ export const registerValidation = (data) => {
         email: Joi.string()
             .min(6)
             .required()
-            .email(),
+            .email()
+    });
+
+    return schema.validate(data);
+}
+
+export const passwordValidation = (data) => {
+    const schema = Joi.object({
         password: Joi.string()
             .min(6)
             .required()
-            .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+            .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
     });
 
     return schema.validate(data);
