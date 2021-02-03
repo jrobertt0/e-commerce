@@ -10,7 +10,7 @@ export const getItem = async (req, res) => {
 
 export const getItems = async (req, res) => {
     Item.find()
-        .then(items => res.status(200).json(items))
+        .then(items => res.json("items" + items))
             .catch(err => res.status(400).json('Error: ' + err))
 }
 
@@ -28,7 +28,7 @@ export const addItem = (req, res) => {
     newItem.image = data.image;
 
     newItem.save()
-        .then(savedItem => res.status(200).send({ item: savedItem._id }))
+        .then(savedItem => res.send({ item: savedItem._id }))
         .catch(err => res.status(400).json('Error: ' + err))
 }
 
@@ -40,6 +40,12 @@ export const deleteItem = async (req, res) => {
 
 export const editItem = async (req, res) => {
     const data = req.body;
+
+    const { error } = itemValidation(req.body);
+
+    if (error)
+        return res.status(400).send(error);
+        
     Exercise.findById(req.params.id)
         .then(item => {
             item.name = data.name ? data.name : item.name;
@@ -48,7 +54,7 @@ export const editItem = async (req, res) => {
             item.image = data.image ? data.image : item.image;
 
             exercise.save()
-                .then(() => res.json('Exercise updated!'))
+                .then(() => res.json("status: success"))
                 .catch(err => res.status(400).json('Error: ' + err));
         })
         .catch(err => res.status(400).json('Error: ' + err));
