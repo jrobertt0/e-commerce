@@ -107,6 +107,7 @@ export const getImageFile = (req, res) => {
 };
 
 export const deleteFile = (req, res) => {
+	console.log(req.currentRoot)
 	getGfs().remove(
 		{ _id: req.params.id, root: req.currentRoot },
 		(err, gridStore) => {
@@ -114,7 +115,7 @@ export const deleteFile = (req, res) => {
 				return res.status(404).json({ err: err });
 			}
 
-			res.redirect("/");
+			return res.send({status: "success"})
 		}
 	);
 };
