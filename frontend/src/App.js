@@ -38,7 +38,7 @@ function App() {
 }
 
 function NestedRoutes(props) {
-	return <div>{props.children}</div>;
+	return <div className="nested">{props.children}</div>;
 }
 
 export default App;

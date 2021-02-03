@@ -23,6 +23,7 @@
 
 .container {
 	display: flex;
+	transition: all 0.5s ease-in-out;
 }
 
 .input-component {
@@ -300,3 +301,8 @@ input[type="checkbox"] {
 .dropdown:hover .dropdown-content {
 	display: block;
 }
+
+// .nested{
+// 	width: 100vw;
+// 	overflow-x: hidden;
+// }

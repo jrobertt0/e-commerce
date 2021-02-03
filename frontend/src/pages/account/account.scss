@@ -4,37 +4,66 @@
 	margin-top: 3rem;
 }
 
-.image-container {
+.top-container {
 	display: flex;
 	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	flex: 3;
+}
+
+.medium-container {
+	flex: 2;
 }
 
 .user-image {
-	min-width: 5rem;
-	min-height: 5rem;
-	max-width: 5rem;
-	max-height: 5rem;
+	min-width: 13rem;
+	min-height: 13rem;
+	max-width: 13rem;
+	max-height: 13rem;
 	border-radius: 100%;
 	overflow: hidden;
 
 	.image-container {
-		height: 100%;
+		height: 13rem;
 		width: 100%;
 		display: flex;
 		justify-content: center;
 	}
 }
 
+.justify-center {
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 2rem;
+
+	h2{
+		font-weight: 300;
+	}
+}
+
+.card-big {
+	min-width: 65vw;
+	max-width: 500px;
+	min-height: 50vh;
+	max-height: 50vh;
+	display: flex;
+	// overflow: hidden;
+}
+
 .hover-content {
-	width: 5rem;
-	height: 5rem;
+	min-width: 13rem;
+	min-height: 13rem;
+	max-width: 13rem;
+	max-height: 13rem;
 	display: none;
 	background-color: rgba(153, 153, 153, 0.185);
 	border-radius: 100%;
 	z-index: 10;
 	align-items: flex-end;
 	justify-content: flex-end;
-	transform: translateX(-100%);
+	transform: translate(0%, -100%);
 
 	svg {
 		color: $primaryColor;
@@ -43,20 +72,56 @@
 }
 
 .hoverable:hover .hover-content {
-	float: left;
 	display: flex;
+}
+
+.hoverable:hover .additionalData {
+	transform: translate(0, -208px);
 }
 
 .hoverable:hover {
-	transform: translateX(2.5rem);
+	transform: translate(0%, 104px);
+}
+
+.additionalData {
+	color: black;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	p {
+		font-size: 8pt;
+
+		span {
+			font-size: 10pt;
+			color: $primaryColor;
+		}
+	}
+
+	.admin {
+		border: 1px solid $success;
+		border-radius: 5px;
+		display: flex;
+		justify-content: center;
+		min-width: 4rem;
+
+		span {
+			font-size: 8pt !important;
+			font-weight: 600;
+			color: $success;
+		}
+	}
 }
 
 .buttons-container {
-	display: flex;
-	justify-content: center;
-
+	margin: 0 2rem;
 	button {
-		width: 30%;
+		width: 70%;
+		max-width: 13rem;
+		margin: 10px;
+		padding: 0;
+		display: inline-block;
 	}
 
 	.cancel {
@@ -69,8 +134,8 @@
 }
 
 .field {
-	max-width: 40%;
-	margin: 0 auto;
+	max-width: 207px;
+	margin: 5px auto;
 
 	div:first-child {
 		margin-top: 2.5rem;
@@ -80,27 +145,72 @@
 		color: black;
 		align-items: center;
 		justify-content: flex-start;
-		margin-bottom: 2.5rem;
+		max-height: 30px;
 
 		input {
 			margin-bottom: 0;
 			max-width: 100%;
 		}
 
-		p {
+		div p, h6 {
 			margin: 0;
 		}
 	}
 }
 
-@media screen and (max-width: 550px) {
-	.field {
-		max-width: 60%;
-	}
+.info-label {
+	text-align: left;
 }
 
-@media screen and (max-width: 425px) {
-	.field {
-		max-width: 80%;
+@media screen and (max-width: 768px) {
+	.card-big {
+		min-width: 0;
+		min-height: 0;
+		max-height: 100vh;
+		display: block;
+	}
+
+	.image-container {
+		flex-direction: row;
+	}
+
+	.additionalData {
+		margin-left: 2.5rem;
+	}
+
+	.top-container {
+		flex-direction: row;
+	}
+
+	.user-image {
+		min-width: 5rem;
+		min-height: 5rem;
+		max-width: 5rem;
+		max-height: 5rem;
+
+		.image-container {
+			height: 5rem;
+			width: 100%;
+		}
+	}
+
+	.buttons-container button {
+		width: 30%;
+	}
+
+	.hover-content {
+		min-width: 5rem;
+		min-height: 5rem;
+		max-width: 5rem;
+		max-height: 5rem;
+		transform: translateX(-100%);
+	}
+
+	.hoverable:hover .additionalData {
+		transform: translateX(-5rem);
+	}
+
+	.hoverable:hover {
+		transform: translateX(2.5rem);
 	}
 }

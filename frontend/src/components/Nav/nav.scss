@@ -5,17 +5,26 @@
 		padding: 0.4rem 1rem;
 		a {
 			text-decoration: none;
-			color: $primaryColor;
+			color: white;
 		}
 	}
 
 	li:hover {
-		background-color: $primaryColorLight;
+		background-color: white;
 		transition: all 0.2s ease-out;
 		a {
-			color: white;
+			color: $primaryColor;
 		}
 	}
+}
+
+.nav-gradient {
+	background: rgb(84, 217, 255);
+	background: linear-gradient(
+		278deg,
+		rgba(84, 217, 255, 1) 0%,
+		rgba(84, 122, 255, 1) 61%
+	);
 }
 
 nav {
@@ -142,9 +151,10 @@ svg {
 		min-height: 15.5rem;
 		align-items: center;
 		position: absolute;
+		width: 40%;
 		opacity: 1;
-		left: -100%;
-		width: 100%;
+		right: 0;
+		transform: translateX(100%);
 		transition: all 0.5s ease-in-out;
 		z-index: 10;
 
@@ -166,12 +176,16 @@ svg {
 	}
 
 	.down-nav.active {
-		left: 0;
-		min-width: 100%;
+		transform: translateX(0);
+		min-width: 35%;
 		transition: all 0.5s ease-in-out;
 	}
 
 	.search-container {
 		width: 20%;
+	}
+
+	body {
+		overflow-x: hidden;
 	}
 }

@@ -25,7 +25,10 @@ function AccountFields({
 							onChange={(e) => setValue(e.target.value)}
 						/>
 					) : (
-						<p>{type === "text" ? value : "••••••••"}</p>
+						<div className="info-label">
+							<h6>{name}</h6>
+							<p>{type === "text" ? value : "••••••••"}</p>
+						</div>
 					)}
 				</div>
 			</div>

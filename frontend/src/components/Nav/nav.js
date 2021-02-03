@@ -58,7 +58,7 @@ function Nav() {
 					<></>
 				)}
 			</section>
-			<section className={openMenu ? "down-nav active" : "down-nav"}>
+			<section className={openMenu ? "down-nav active nav-gradient" : "down-nav nav-gradient"}>
 				<ul className="nav-links">
 					{MenuItems.map((item, index) => (
 						<li
