@@ -1,27 +1,7 @@
 @import "../../globalStyles/_variables";
 
-.card-container {
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-end;
-	text-align: center;
-	color: white;
-}
-
 .title {
 	color: $primaryColor;
-}
-
-.card {
-	border-radius: 10px;
-	background-color: white;
-	box-shadow: 13px 14px 14px -11px rgba(0, 0, 0, 0.54);
-	padding: 1rem;
-	text-align: center;
-
-	svg {
-		margin-bottom: 2rem;
-	}
 }
 
 .input-login {
@@ -42,12 +22,6 @@
 	font-size: 14pt;
 }
 
-.input-component {
-	display: flex;
-	justify-content: center;
-	flex-wrap: wrap;
-}
-
 .login-button {
 	width: 50%;
 }
@@ -57,49 +31,16 @@
 	color: $primaryColor;
 }
 
-.error-msgs {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background-color: rgb(255, 70, 70);
-	border-radius: 5px;
-	width: 90%;
-	height: 2rem;
-	margin: 0 auto;
-	border: 2px solid rgb(235, 52, 52);
-	color: white;
-	font-size: 9pt;
-	opacity: 0;
-	transition: all 0.5s ease-in-out;
-}
-
-.error-msgs.active {
-	opacity: 1;
-	transition: all 0.5s ease-in-out;
-}
-
-
-
 @media screen and (max-width: 768px) {
 	.container {
 		flex-direction: column;
 		justify-content: flex-end;
 		align-items: center;
-		background: linear-gradient(
-			$primaryColor 52%,
-			rgba(255, 255, 255, 1) 52%
-		);
 	}
 
-	.card-container {
-		width: 85%;
-		max-width: 525px;
-		height: 75%;
-	}
-
-	.card {
-		margin-bottom: 1rem;
-		height: 80%;
+	.gradient-bg {
+		background: rgb(84,122,255);
+		background: linear-gradient(180deg, rgba(84,122,255,1) 29%, rgba(84,217,255,1) 51%, rgba(255,255,255,1) 51%);
 	}
 
 	.title {

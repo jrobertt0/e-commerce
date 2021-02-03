@@ -1,7 +1,7 @@
 export const MenuItems = [
     {
         title: 'Inicio',
-        url: '#',
+        url: '/about',
         cName: ''
     },
     {
@@ -31,7 +31,12 @@ export const MenuItems = [
     },
     {
         title: 'Cuenta',
-        url: '#',
+        url: '/account',
+        cName: 'account'
+    },
+    {
+        title: 'Cerrar Sesión',
+        url: '/login',
         cName: 'account'
     }
 ]

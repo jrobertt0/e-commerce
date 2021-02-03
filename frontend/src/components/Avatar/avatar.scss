@@ -1,12 +1,38 @@
 @import "../../globalStyles/_variables";
 
 * {
-    font-family: 'Montserrat', sans-serif;
+	font-family: "Montserrat", sans-serif;
+}
+
+.account {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 1.5rem;
+
+    a {
+        margin-left: 1.5rem;
+        color: $primaryColor
+    }
 }
 
 .avatar-form {
-    border-radius: 100%;
-    background-color: gray;
-    width: 2.2rem;
-    height: 2.2rem;
+	border-radius: 100%;
+	width: 2.2rem;
+	height: 2.2rem;
+	overflow: hidden;
+    text-align: center;
+    
+    .image-container {
+		height: 100%;
+		width: 100%;
+		display: flex;
+		justify-content: center;
+	}
+}
+
+.dropdown-content {
+    padding: 5px;
+    min-width: 100px;
+    font-size: 10pt;
 }

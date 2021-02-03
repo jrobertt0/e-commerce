@@ -10,62 +10,47 @@ import {
 } from "../../helpers/storage";
 import "./loginCard.scss";
 import { Link } from "react-router-dom";
-
-async function preformLogin(credentials) {
-	return fetch("http://localhost:5000/api/user/login", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify(credentials),
-	}).then((data) => data.json());
-}
-
-async function preformRegister(credentials) {
-	return fetch("http://localhost:5000/api/user/register", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify(credentials),
-	}).then((data) => data.json());
-}
+import ClipLoader from "react-spinners/ClipLoader";
+import { loginRegister } from "../../helpers/requests";
+import ErrorMsg from "../../components/ErrorMsg/errorMsg";
 
 function LoginCard({ login }) {
+	const [isLoading, setIsLoading] = useState(false);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [username, setUsername] = useState("");
+	const [name, setName] = useState("");
 	const [msgs, setMsgs] = useState("");
 	const [rememberMe, setRememberme] = useState(false);
-
-	useEffect(() => {
-		if (getInLocal("rememberMe")) {
-			setRememberme(true);
-			setEmail(getInLocal("email"));
-			setPassword(getInLocal("password"));
-		}
-	}, []);
 
 	const handleSubmit = async (e) => {
 		let res;
 		e.preventDefault();
+		setIsLoading(true);
 		if (login) {
-			res = await preformLogin({
-				email,
-				password,
-			});
+			res = await loginRegister(
+				{
+					email,
+					password,
+				},
+				"login"
+			);
 		} else {
-			res = await preformRegister({
-				email,
-				password,
-				username,
-			});
+			res = await loginRegister(
+				{
+					email,
+					password,
+					username,
+					name
+				},
+				"register"
+			);
 		}
+		setIsLoading(false);
 		if (res.Error) {
 			setMsgs(res.Error);
 			setTimeout(() => setMsgs(""), 2000);
 		} else if (res.token) {
-			console.log("here")
 			setToken(res.token);
 			if (rememberMe) {
 				setInLocal("rememberMe", true);
@@ -77,28 +62,55 @@ function LoginCard({ login }) {
 			setEmail("");
 			setPassword("");
 			setUsername("");
+			setName("");
 			window.location.href = "/";
 		}
 		console.log(res);
 	};
 
+	useEffect(() => {
+		if (getInLocal("rememberMe") && login) {
+			setRememberme(true);
+			setEmail(getInLocal("email"));
+			setPassword(getInLocal("password"));
+		}
+	}, []);
+
 	return (
 		<div className="card-container">
 			<h2>{login ? "Iniciar Sesión" : "Registro"}</h2>
 			<div className="card">
-				<Logo></Logo>
+				<div className="top-card">
+					{isLoading ? <ClipLoader></ClipLoader> : <Logo></Logo>}
+				</div>
 				<form className="login-form" onSubmit={(e) => handleSubmit(e)}>
 					{!login ? (
-						<div className="input-component">
-							<FaUserAlt className="icon"></FaUserAlt>
-							<input
-								required
-								type="text"
-								className="input-login"
-								placeholder="Usuario"
-								onChange={(e) => setUsername(e.target.value)}
-							/>
-						</div>
+						<>
+							<div className="input-component">
+								<FaUserAlt className="icon"></FaUserAlt>
+								<input
+									required
+									type="text"
+									className="input-login"
+									placeholder="Usuario"
+									onChange={(e) =>
+										setUsername(e.target.value)
+									}
+								/>
+							</div>
+							<div className="input-component">
+								<FaUserAlt className="icon"></FaUserAlt>
+								<input
+									required
+									type="text"
+									className="input-login"
+									placeholder="Nombre"
+									onChange={(e) =>
+										setName(e.target.value)
+									}
+								/>
+							</div>
+						</>
 					) : (
 						<></>
 					)}
@@ -139,7 +151,7 @@ function LoginCard({ login }) {
 									<span></span>Recuerdame
 								</label>
 							</div>
-							<button type="submit" className="btn login-button">
+							<button type="submit" className="btn login-button bg-gradient">
 								<span>Ingresar</span>
 							</button>
 							<Link
@@ -151,7 +163,7 @@ function LoginCard({ login }) {
 						</>
 					) : (
 						<>
-							<button type="submit" className="btn login-button">
+							<button type="submit" className="btn login-button bg-gradient">
 								<span>Registrarse</span>
 							</button>
 							<Link to="/login" className="login-link">
@@ -159,13 +171,7 @@ function LoginCard({ login }) {
 							</Link>
 						</>
 					)}
-					<div
-						className={
-							msgs === "" ? "error-msgs" : "error-msgs active"
-						}
-					>
-						<h5>{msgs}</h5>
-					</div>
+					<ErrorMsg msgs={msgs}></ErrorMsg>
 				</form>
 			</div>
 		</div>

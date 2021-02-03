@@ -64,7 +64,7 @@ export const getFilesJSON = (req, res) => {
 		.toArray((err, files) => {
 			if (!files || files.length === 0) {
 				return res.status(404).json({
-					err: "No files exist",
+					Error: "No files exist",
 				});
 			}
 
@@ -76,7 +76,7 @@ export const getFile = (req, res) => {
 	getGfs().files.findOne({ filename: req.params.filename }, (err, file) => {
 		if (!file || file.length === 0) {
 			return res.status(404).json({
-				err: "No file exists",
+				Error: "No file exists",
 			});
 		}
 		return res.json(file);
@@ -88,7 +88,7 @@ export const getImageFile = (req, res) => {
 		console.log(err)
 		if (!file || file.length === 0) {
 			return res.status(404).json({
-				err: "No file exists",
+				Error: "No file exists",
 			});
 		}
 
@@ -112,7 +112,7 @@ export const deleteFile = (req, res) => {
 		{ _id: req.params.id, root: req.currentRoot },
 		(err, gridStore) => {
 			if (err) {
-				return res.status(404).json({ err: err });
+				return res.status(404).json({ Error: err });
 			}
 
 			return res.send({status: "success"})

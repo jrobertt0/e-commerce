@@ -5,23 +5,33 @@
 		padding: 0.4rem 1rem;
 		a {
 			text-decoration: none;
-			color: $primaryColor;
+			color: white;
 		}
 	}
 
 	li:hover {
-		background-color: $primaryColorLight;
+		background-color: white;
 		transition: all 0.2s ease-out;
 		a {
-			color: white;
+			color: $primaryColor;
 		}
 	}
+}
+
+.nav-gradient {
+	background: rgb(84, 217, 255);
+	background: linear-gradient(
+		278deg,
+		rgba(84, 217, 255, 1) 0%,
+		rgba(84, 122, 255, 1) 61%
+	);
 }
 
 nav {
 	max-height: 6.5rem;
 	background-color: white;
-	box-shadow: 0px 4px 17px 0px rgba(0, 0, 0, 0.17);
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
+		rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
 }
 
 .menu {
@@ -81,9 +91,6 @@ svg {
 	list-style: none;
 
 	@include no-link-style();
-	a:first-child {
-		margin-right: 15px;
-	}
 	a {
 		font-weight: 700;
 	}
@@ -94,6 +101,11 @@ svg {
 	padding: 0.5rem;
 	background-color: transparent;
 	min-width: 80%;
+
+	&:focus,
+	&:active {
+		outline: none;
+	}
 }
 
 .hidden {
@@ -139,10 +151,12 @@ svg {
 		min-height: 15.5rem;
 		align-items: center;
 		position: absolute;
+		width: 40%;
 		opacity: 1;
-		left: -100%;
-		width: 100%;
+		right: 0;
+		transform: translateX(100%);
 		transition: all 0.5s ease-in-out;
+		z-index: 10;
 
 		.nav-links {
 			@include no-link-style();
@@ -162,12 +176,16 @@ svg {
 	}
 
 	.down-nav.active {
-		left: 0;
-		min-width: 100%;
+		transform: translateX(0);
+		min-width: 35%;
 		transition: all 0.5s ease-in-out;
 	}
 
 	.search-container {
 		width: 20%;
+	}
+
+	body {
+		overflow-x: hidden;
 	}
 }
