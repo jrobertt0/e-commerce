@@ -5,6 +5,7 @@ import Nav from "./components/Nav/nav";
 import About from "./pages/about";
 import Account from "./pages/account/account";
 import Shop from "./pages/Shop/shop";
+import AddItem from "./pages/AddItem/addItem";
 
 function App() {
 	return (
@@ -25,6 +26,7 @@ function App() {
 						<Nav></Nav>
 						<Route path="/" exact component={Shop}></Route>
 						<Route path="/about" exact component={About}></Route>
+						<Route path="/add" exact component={AddItem}></Route>
 						<Route
 							path="/account"
 							exact

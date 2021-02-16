@@ -1,7 +1,23 @@
+import Carousel from "../../components/Carousel/carousel";
+import { slideBarItems } from "./items";
+import "./shop.scss";
 
 function Shop() {
 	return (
-		<h1>shop</h1>
+		<div className="center">
+			<Carousel slides={slideBarItems} />
+			<section className="featured">
+				<div>
+					
+				</div>
+			</section>
+			<section className="all">
+
+			</section>
+			<section className="another">
+
+			</section>
+		</div>
 	);
 }
 

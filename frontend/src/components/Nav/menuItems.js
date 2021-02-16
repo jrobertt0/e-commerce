@@ -21,12 +21,12 @@ export const MenuItems = [
     },
     {
         title: 'Iniciar Sesíon',
-        url: '#',
+        url: '/login',
         cName: 'login'
     },
     {
         title: 'Registrarse',
-        url: '#',
+        url: '/register',
         cName: 'login'
     },
     {

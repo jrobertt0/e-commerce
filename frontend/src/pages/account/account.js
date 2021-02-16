@@ -43,7 +43,7 @@ function Account() {
 				console.table(user.avatar);
 			} else {
 				setIsLoading(false);
-				setMsgs(res);
+				setMsgs("Error uploading image");
 				return;
 			}
 		}
