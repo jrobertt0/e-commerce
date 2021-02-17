@@ -1,7 +1,7 @@
 export const MenuItems = [
     {
         title: 'Inicio',
-        url: '/about',
+        url: '/',
         cName: ''
     },
     {

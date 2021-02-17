@@ -1,0 +1,27 @@
+@import "../../globalStyles/_variables";
+
+.warning-container {
+    margin: 1rem auto 0 auto; 
+    text-align: center;
+    width: 90%;
+    max-width: 800px;
+
+    svg{
+        min-width: 80%;
+        min-height: 50vh;
+    }
+
+    button {
+        width: 100px;
+    }
+}
+
+.highlight {
+    color: $primaryColor;
+}
+
+@media screen and (max-width: 768px) {
+    .warning-container svg {
+        min-height: 25vh
+    }
+}

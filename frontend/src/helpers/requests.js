@@ -13,7 +13,7 @@ export async function loginRegister(credentials, type) {
 	}).then((data) => data.json());
 }
 
-export async function getUser(setValue) {
+export async function getCurrentUser(setValue) {
 	const token = getToken();
 	const response = await fetch(direction + "/account/user", {
 		method: "POST",
@@ -24,6 +24,7 @@ export async function getUser(setValue) {
 	});
 	const remoteUser = await response.json();
 	setValue(remoteUser);
+	return { Error } = remoteUser;
 }
 
 export async function editUser(credentials) {

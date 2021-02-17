@@ -4,15 +4,17 @@ import ClipLoader from "react-spinners/ClipLoader";
 import {
 	deleteImage,
 	editUser,
-	getUser,
+	getCurrentUser,
 	uploadImage,
 } from "../../helpers/requests";
 import { FaEdit } from "react-icons/fa";
 import ListAccountFields from "./listAccountFields";
 import ErrorMsg from "../../components/ErrorMsg/errorMsg";
+import NoAuth from "../../components/NoAuth/noAuth";
 
 function Account() {
 	const [user, setUser] = useState(" ");
+	const [isAuth, setIsAuth] = useState(false);
 	const [edit, setEdit] = useState(false);
 
 	const [email, setEmail] = useState("");
@@ -105,7 +107,8 @@ function Account() {
 
 	useEffect(() => {
 		async function aux() {
-			await getUser(setUser).then(() => console.log(user));
+			let error = await getCurrentUser(setUser);
+			if (!error) setIsAuth(true);
 		}
 		if (user === " ") aux();
 		else if (
@@ -127,120 +130,143 @@ function Account() {
 	}, [user, container, card]);
 
 	return (
-		<form className="container justify-center" onSubmit={handleSubmit}>
-			{user === " " || isLoading ? (
-				<ClipLoader></ClipLoader>
+		<>
+			{!isAuth ? (
+				<NoAuth></NoAuth>
 			) : (
-				<>
-					<h2>Información de Cuenta</h2>
-					<div className="card-container space" ref={container}>
-						<div className="card card-big" ref={card}>
-							<div className="top-container">
-								<div className={edit ? "hoverable info" : "info"}>
-									<div className="user-image">
-										<div className="image-container">
-											<img
-												src={
-													image
-														? image
-														: "http://localhost:5000/api/upload/avatar/image/" +
-														  user.avatar.filename
-												}
-												alt="avatar"
-											/>
+				<form
+					className="container justify-center"
+					onSubmit={handleSubmit}
+				>
+					{user === " " || isLoading ? (
+						<ClipLoader></ClipLoader>
+					) : (
+						<>
+							<h2>Información de Cuenta</h2>
+							<div
+								className="card-container space"
+								ref={container}
+							>
+								<div className="card card-big" ref={card}>
+									<div className="top-container">
+										<div
+											className={
+												edit ? "hoverable info" : "info"
+											}
+										>
+											<div className="user-image">
+												<div className="image-container">
+													<img
+														src={
+															image
+																? image
+																: "http://localhost:5000/api/upload/avatar/image/" +
+																  user.avatar
+																		.filename
+														}
+														alt="avatar"
+													/>
+												</div>
+											</div>
+											{edit ? (
+												<div
+													onClick={() =>
+														selectPicture.current.click()
+													}
+													className="hover-content"
+												>
+													<FaEdit></FaEdit>
+												</div>
+											) : (
+												<></>
+											)}
+											<div className="additionalData">
+												<p>
+													Miembro desde: <br />
+													<span>
+														{formatDate(
+															new Date(
+																user.createdAt
+															)
+														)}
+													</span>
+												</p>
+												{user.admin ? (
+													<div className="admin">
+														<span>Admin</span>
+													</div>
+												) : (
+													<></>
+												)}
+											</div>
 										</div>
 									</div>
 									{edit ? (
-										<div
-											onClick={() =>
-												selectPicture.current.click()
-											}
-											className="hover-content"
-										>
-											<FaEdit></FaEdit>
-										</div>
+										<input
+											hidden
+											type="file"
+											ref={selectPicture}
+											onChange={(e) => handleImage(e)}
+										/>
 									) : (
 										<></>
 									)}
-									<div className="additionalData">
-										<p>
-											Miembro desde: <br />
-											<span>
-												{formatDate(
-													new Date(user.createdAt)
-												)}
-											</span>
-										</p>
-										{user.admin ? (
-											<div className="admin">
-												<span>Admin</span>
-											</div>
-										) : (
-											<></>
-										)}
+
+									<div className="medium-container">
+										<ListAccountFields
+											edit={edit}
+											username={username}
+											setUsername={setUsername}
+											name={name}
+											setName={setName}
+											email={email}
+											setEmail={setEmail}
+											password={password}
+											setPassword={setPassword}
+										/>
+										<ErrorMsg msgs={msgs} />
+										<div className="buttons-container">
+											{edit ? (
+												<>
+													<button
+														className="btn cancel"
+														name="cancel"
+														type="button"
+														onClick={() =>
+															handleCancel()
+														}
+													>
+														<span>Cancelar</span>
+													</button>
+													<button
+														className="btn save"
+														type="submit"
+														name="send"
+													>
+														<span>Guardar</span>
+													</button>
+												</>
+											) : (
+												<button
+													type="button"
+													name="edit"
+													className="btn primary-gradient"
+													onClick={() =>
+														setEdit(true)
+													}
+												>
+													<span>Editar</span>
+												</button>
+											)}
+										</div>
 									</div>
 								</div>
 							</div>
-							{edit ? (
-								<input
-									hidden
-									type="file"
-									ref={selectPicture}
-									onChange={(e) => handleImage(e)}
-								/>
-							) : (
-								<></>
-							)}
-
-							<div className="medium-container">
-								<ListAccountFields
-									edit={edit}
-									username={username}
-									setUsername={setUsername}
-									name={name}
-									setName={setName}
-									email={email}
-									setEmail={setEmail}
-									password={password}
-									setPassword={setPassword}
-								/>
-								<ErrorMsg msgs={msgs} />
-								<div className="buttons-container">
-									{edit ? (
-										<>
-											<button
-												className="btn cancel"
-												name="cancel"
-												type="button"
-												onClick={() => handleCancel()}
-											>
-												<span>Cancelar</span>
-											</button>
-											<button
-												className="btn save"
-												type="submit"
-												name="send"
-											>
-												<span>Guardar</span>
-											</button>
-										</>
-									) : (
-										<button
-											type="button"
-											name="edit"
-											className="btn primary-gradient"
-											onClick={() => setEdit(true)}
-										>
-											<span>Editar</span>
-										</button>
-									)}
-								</div>
-							</div>
-						</div>
-					</div>
-				</>
+						</>
+					)}
+				</form>
 			)}
-		</form>
+		</>
 	);
 }
 

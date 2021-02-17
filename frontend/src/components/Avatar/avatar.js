@@ -3,13 +3,13 @@ import { sessionClear } from "../../helpers/storage";
 import { useEffect, useState } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 import { Link } from "react-router-dom";
-import { getUser } from "../../helpers/requests";
+import { getCurrentUser } from "../../helpers/requests";
 
 function Avatar() {
 	const [user, setUser] = useState(" ");
 
 	useEffect(() => {
-		getUser(setUser).then(() => console.log(user));
+		getCurrentUser(setUser).then(() => console.log(user));
 	}, []);
 
 	return (

@@ -28,7 +28,9 @@ function Nav() {
 	return (
 		<nav>
 			<section className="upper-nav">
-				<Logo></Logo>
+				<Link to="/">
+					<Logo></Logo>
+				</Link>
 				<SearchBbar></SearchBbar>
 				{loggedIn ? (
 					<div className="login-container">
@@ -59,7 +61,13 @@ function Nav() {
 					<></>
 				)}
 			</section>
-			<section className={openMenu ? "down-nav active nav-gradient" : "down-nav nav-gradient"}>
+			<section
+				className={
+					openMenu
+						? "down-nav active nav-gradient"
+						: "down-nav nav-gradient"
+				}
+			>
 				<ul className="nav-links">
 					{MenuItems.map((item, index) => (
 						<li
@@ -87,7 +95,9 @@ function Nav() {
 								<Link
 									to={item.url}
 									onClick={() =>
-										setOpenMenu((val) => isSmall ? val = !val : val)
+										setOpenMenu((val) =>
+											isSmall ? (val = !val) : val
+										)
 									}
 								>
 									{item.title}
