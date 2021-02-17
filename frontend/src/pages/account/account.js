@@ -25,7 +25,7 @@ function Account() {
 	const [file, setFile] = useState(null);
 
 	const [msgs, setMsgs] = useState("");
-	const [isLoading, setIsLoading] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
 
 	const selectPicture = useRef(null);
 
@@ -108,6 +108,8 @@ function Account() {
 	useEffect(() => {
 		async function aux() {
 			let error = await getCurrentUser(setUser);
+			setIsLoading(false);
+			console.log("error", error);
 			if (!error) setIsAuth(true);
 		}
 		if (user === " ") aux();
@@ -131,17 +133,19 @@ function Account() {
 
 	return (
 		<>
-			{!isAuth ? (
-				<NoAuth></NoAuth>
+			{isLoading ? (
+				<div className="container justify-center">
+					<ClipLoader></ClipLoader>
+				</div>
 			) : (
-				<form
-					className="container justify-center"
-					onSubmit={handleSubmit}
-				>
-					{user === " " || isLoading ? (
-						<ClipLoader></ClipLoader>
+				<>
+					{!isAuth ? (
+						<NoAuth></NoAuth>
 					) : (
-						<>
+						<form
+							className="container justify-center"
+							onSubmit={handleSubmit}
+						>
 							<h2>Información de Cuenta</h2>
 							<div
 								className="card-container space"
@@ -262,9 +266,9 @@ function Account() {
 									</div>
 								</div>
 							</div>
-						</>
+						</form>
 					)}
-				</form>
+				</>
 			)}
 		</>
 	);

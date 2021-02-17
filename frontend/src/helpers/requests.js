@@ -24,7 +24,8 @@ export async function getCurrentUser(setValue) {
 	});
 	const remoteUser = await response.json();
 	setValue(remoteUser);
-	return { Error } = remoteUser;
+	const { Error } = remoteUser;
+	return Error
 }
 
 export async function editUser(credentials) {

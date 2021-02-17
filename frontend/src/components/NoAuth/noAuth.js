@@ -8,7 +8,8 @@ function NoAuth() {
 	const history = useHistory();
 
 	useEffect(() => {
-		setInterval(() => setTimeRedirect((prev) => (prev -= 1)), 1000);
+		const timer = setInterval(() => setTimeRedirect((prev) => (prev -= 1)), 1000);
+        return () => clearInterval(timer);
 	}, []);
 
 	useEffect(() => {
@@ -19,10 +20,19 @@ function NoAuth() {
 
 	return (
 		<div className="warning-container">
-			<h1><span className="highlight">¡Ups!</span> Parece que no iniciaste sesión</h1>
+			<h1>
+				<span className="highlight">¡Ups!</span> Parece que no iniciaste
+				sesión
+			</h1>
 			<Warning></Warning>
-			<h2>Serás redireccionado al inicio en: <span className="highlight">{timeRedirect}</span></h2>
-			<button className="btn primary-gradient" onClick={() => history.push("/")}>
+			<h2>
+				Serás redireccionado al inicio en:{" "}
+				<span className="highlight">{timeRedirect}</span>
+			</h2>
+			<button
+				className="btn primary-gradient"
+				onClick={() => history.push("/")}
+			>
 				<span> Ir a Inicio</span>
 			</button>
 		</div>

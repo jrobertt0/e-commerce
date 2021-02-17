@@ -35,7 +35,7 @@ function Nav() {
 				{loggedIn ? (
 					<div className="login-container">
 						<Avatar></Avatar>
-						<Link>
+						<Link to="/">
 							<FiShoppingCart></FiShoppingCart>
 						</Link>
 					</div>
